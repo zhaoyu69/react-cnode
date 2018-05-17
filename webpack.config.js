@@ -1,6 +1,7 @@
 // webpack.config.js
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const tsImportPluginFactory = require('ts-import-plugin')
 const webpack = require('webpack');
 
 module.exports = {
@@ -47,7 +48,17 @@ module.exports = {
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             {
                 test: /\.tsx?$/,
-                loader: "awesome-typescript-loader"
+                loader: "awesome-typescript-loader",
+                options: {
+                    getCustomTransformers: () => ({
+                        before: [ tsImportPluginFactory({
+                            libraryName: 'antd',
+                            libraryDirectory: 'es',
+                            style: true,
+                        }) ]
+                    }),
+                },
+                exclude: /node_modules/
             },
         ]
     },
@@ -57,7 +68,10 @@ module.exports = {
             template: './index.html'
         }),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.WatchIgnorePlugin([
+            /(less|css)\.d\.ts$/
+        ])
     ],
     devServer: {
         contentBase: './dist',

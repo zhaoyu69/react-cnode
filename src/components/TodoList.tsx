@@ -1,6 +1,7 @@
 import * as React from "react";
 import {observer} from "mobx-react";
 import {toJS} from "mobx";
+import {Button} from 'antd';
 
 @observer
 export default class TodoList extends React.Component<any, any> {
@@ -11,6 +12,7 @@ export default class TodoList extends React.Component<any, any> {
             <div>
                 <input type="text" placeholder="todo" onChange={e=>store.changeTodo(e.target.value)}/>
                 <button onClick={store.addTodo}>add</button>
+                <Button type="primary">123</Button>
                 <span>{store.count}</span>
                 <ul>
                     {todoItems.map((todo:any, index:number)=><li key={index}>{todo}</li>)}
