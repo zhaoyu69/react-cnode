@@ -24,10 +24,29 @@ module.exports = {
                 use: ['style-loader', 'css-loader']
             },
             {
-                test: /\.less/,
+                test: /\.less$/,
+                exclude:/node_modules/, //不包含资源库，自写的less文件使用module
                 use: [
                     'style-loader',
                     'typings-for-css-modules-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]&namedExport&camelCase&less!less-loader'
+                ]
+            },
+            {
+                test: /\.less$/,
+                include:/node_modules/, //资源库的less文件不使用module
+                use: [
+                    {
+                        loader:'style-loader'
+                    },
+                    {
+                        loader:'css-loader'
+                    },
+                    {
+                        loader:'less-loader',
+                        options: {
+                            javascriptEnabled: true
+                        }
+                    }
                 ]
             },
             {
