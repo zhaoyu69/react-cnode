@@ -8,9 +8,20 @@
     "jsx": "react",
     "removeComments": true,
     "experimentalDecorators": true,
-    "allowJs": true
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noLib": false,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015.promise",
+      "es2017"
+    ]
   },
   "include": [
     "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
