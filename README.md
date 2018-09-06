@@ -6,5 +6,5 @@
 3. webpack @4
 4. css module
 5. mobx
-
-
+6. postcss
+7. lodash

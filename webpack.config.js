@@ -1,16 +1,21 @@
 // webpack.config.js
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // 复制静态资源
+const CleanWebpackPlugin = require('clean-webpack-plugin'); // 清空打包的目录
+const ExtractTextWebapckPlugin = require('extract-text-webpack-plugin'); //css文件单独提取
 const webpack = require('webpack');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        app: './src/index.js'
+    },
     output: {
-        filename: 'app.js',
-        path: path.resolve(__dirname, 'dist')
+        filename: '[name].[hash].js',
+        path: path.resolve(__dirname, 'dist'),
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.less', '.css'],
+        extensions: ['.js', '.jsx', '.less', '.css', '.json'],
         alias: {
             components: path.resolve(__dirname, 'src/components/'),
             utils: path.resolve(__dirname, 'src/utils/'),
@@ -22,35 +27,60 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader'
-                }
+                use: ['babel-loader']
             },
             {
                 test: /\.(css|less)$/,
+                use: ExtractTextWebapckPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+                        'postcss-loader',
+                        'less-loader'
+                    ]
+                })
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/,
                 use: [
-                    'style-loader',
-                    'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-                    'less-loader'
+                    // <= 1024 baseURI || > 1024 file
+                    'url-loader?name=[name].[ext]&outputPath=/static/&limit=1*1024'
                 ]
             },
-            {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: ['url-loader']
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: ['url-loader']
-            }
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './index.html'
+            template: path.join(__dirname, 'public/index.html'),
+            hash: true
         }),
+
         // 热替换
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+
+        // 提取css文件
+        new ExtractTextWebapckPlugin({
+            filename: 'css/[name].[hash].css',
+            allChunks: true
+        }),
+
+        // 复制静态资源
+        new CopyWebpackPlugin([
+            {
+                from: path.resolve(__dirname, 'src/static'),
+                to: path.resolve(__dirname, 'dist/static'),
+                ignore: ['.*']
+            }
+        ]),
+
+        // 常用的库全局声明，例如lodash
+        new webpack.ProvidePlugin({
+            _: 'lodash'
+        }),
+
+        // 打包前先清空原包目录
+        new CleanWebpackPlugin([path.join(__dirname, 'dist')]),
     ],
     // webpack-dev-server
     devServer: {

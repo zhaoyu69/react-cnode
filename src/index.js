@@ -11,6 +11,7 @@ import {
     Redirect,
     Link
 } from 'react-router-dom';
+console.log(_.range(10));
 
 ReactDom.render(
     <Router history={history} >
