@@ -1,3 +1,11 @@
 {
-  "presets": ["env", "react", "stage-2", "mobx"]
+  "presets": [
+    "env",
+    "react",
+    "stage-2",
+    "mobx"
+  ],
+  "plugins": [
+    "transform-runtime"
+  ]
 }

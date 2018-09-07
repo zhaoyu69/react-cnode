@@ -8,3 +8,4 @@
 5. mobx
 6. postcss
 7. lodash
+8. axios

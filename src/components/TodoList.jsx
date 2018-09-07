@@ -23,7 +23,7 @@ class TodoList extends React.Component {
                 <input type="text" value={title} onChange={(e)=>this.setState({title:e.target.value})}/>
                 <button onClick={()=>add(title)}>add</button>
                 <span>{count}</span>
-                <ul>{todoItems.map(todo=><li>{todo}</li>)}</ul>
+                <ul>{todoItems.map((todo, idx)=><li key={idx}>{todo}</li>)}</ul>
             </div>
         );
     }

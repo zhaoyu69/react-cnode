@@ -21,6 +21,7 @@ module.exports = {
             components: path.resolve(__dirname, 'src/components/'),
             utils: path.resolve(__dirname, 'src/utils/'),
             stores: path.resolve(__dirname, 'src/stores/'),
+            services: path.resolve(__dirname, 'src/services/'),
         }
     },
     module: {
@@ -77,7 +78,8 @@ module.exports = {
 
         // 常用的库全局声明，例如lodash
         new webpack.ProvidePlugin({
-            _: 'lodash'
+            _: 'lodash',
+            axios: 'axios'
         }),
 
         // 打包前先清空原包目录
