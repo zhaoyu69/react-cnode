@@ -16,6 +16,7 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.jsx', '.less', '.css', '.json'],
+        // 设置别名，导入路径变得简单
         alias: {
             components: path.resolve(__dirname, 'src/components/'),
             utils: path.resolve(__dirname, 'src/utils/'),
@@ -51,7 +52,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'public/index.html'),
+            template: path.join(__dirname, './index.html'),
             hash: true
         }),
 
@@ -68,7 +69,7 @@ module.exports = {
         // 复制静态资源
         new CopyWebpackPlugin([
             {
-                from: path.resolve(__dirname, 'src/static'),
+                from: path.resolve(__dirname, 'static'),
                 to: path.resolve(__dirname, 'dist/static'),
                 ignore: ['.*']
             }
