@@ -73,7 +73,7 @@ module.exports = {
                                 },
                                 javascriptEnabled: true,
                             },
-                        }
+                        },
                     ]
                 })
             },

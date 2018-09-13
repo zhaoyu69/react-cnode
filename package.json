@@ -29,7 +29,8 @@
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "postcss-loader": "^3.0.0",
-    "postcss-px2rem": "^0.3.0",
+    "postcss-px-to-viewport": "0.0.3",
+    "postcss-write-svg": "github:jonathantneal/postcss-write-svg",
     "style-loader": "^0.23.0",
     "url-loader": "^1.1.1",
     "webpack": "^4.17.2",
@@ -37,7 +38,6 @@
     "webpack-dev-server": "^3.1.7"
   },
   "dependencies": {
-    "amfe-flexible": "^2.2.1",
     "antd-mobile": "^2.2.5",
     "axios": "^0.18.0",
     "lodash": "^4.17.10",

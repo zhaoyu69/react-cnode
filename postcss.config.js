@@ -6,9 +6,17 @@ module.exports = {
                 "> 0.01%"
             ]
         }),
-        require('postcss-px2rem')({
-            remUnit: 75,
-            threeVersion: true
+        require('postcss-px-to-viewport')({
+            viewportWidth: 750,
+            viewportHeight: 1334,
+            unitPrecision: 5,
+            viewportUnit: 'vw',
+            selectorBlackList: [],
+            minPixelValue: 1,
+            mediaQuery: false
+        }),
+        require('postcss-write-svg')({
+            utf8: false
         })
     ]
 };

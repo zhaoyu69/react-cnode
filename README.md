@@ -9,4 +9,4 @@
 7. lodash
 8. axios
 9. antd-mobile
-10. flexiable
+10. vw
