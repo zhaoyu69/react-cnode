@@ -1,4 +1,4 @@
-# react-env
+# react-env-mobile
 
 1. react 
 2. react-router @4
@@ -9,3 +9,4 @@
 7. lodash
 8. axios
 9. antd-mobile
+10. flexiable
