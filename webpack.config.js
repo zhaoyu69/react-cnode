@@ -32,7 +32,10 @@ module.exports = {
                 use: ['babel-loader']
             },
             {
-                test: /\.(css|less)$/,
+                // 是 css|less 而不是 module.css|less 的开启 css-modules
+                test(filePath) {
+                    return /\.(css|less)$/.test(filePath) && !/\.module\.(css|less)$/.test(filePath);
+                },
                 exclude:[/node_modules/],
                 use: ExtractTextWebapckPlugin.extract({
                     fallback: 'style-loader',
@@ -44,7 +47,20 @@ module.exports = {
                 })
             },
             {
-                // antd不开启css-modules
+                // module.css|less 不开启 css-modules
+                test: /\.module\.(css|less)$/,
+                exclude:[/node_modules/],
+                use: ExtractTextWebapckPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        'css-loader?&importLoaders=1',
+                        'postcss-loader',
+                        'less-loader'
+                    ]
+                })
+            },
+            {
+                // antd-mobile[node_modules].css|less 不开启 css-modules
                 test: /\.(css|less)$/,
                 exclude: [/src/],
                 use: ExtractTextWebapckPlugin.extract({
@@ -73,7 +89,7 @@ module.exports = {
                                 },
                                 javascriptEnabled: true,
                             },
-                        }
+                        },
                     ]
                 })
             },
