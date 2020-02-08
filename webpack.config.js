@@ -46,7 +46,7 @@ module.exports = {
                 test: /\.(png|svg|jpg|jpeg|gif)$/,
                 use: [
                     // <= 1024 baseURI || > 1024 file
-                    'url-loader?name=[name].[ext]&outputPath=/static/&limit=1*1024'
+                    'url-loader?name=[name].[ext]&outputPath=static/&limit=1*1024'
                 ]
             },
         ]
@@ -63,7 +63,7 @@ module.exports = {
 
         // 提取css文件
         new ExtractTextWebapckPlugin({
-            filename: 'css/[name].[hash].css',
+            filename: '[name].[hash].css',
             allChunks: true
         }),
 
